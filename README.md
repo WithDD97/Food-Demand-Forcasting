@@ -1,47 +1,14 @@
 # Food-Demand-Forcasting
 Predict the number of orders for the next Week in a restaurant.
 
-# Problem Statement
+For this project, The goal was to build a Forecasting Machine learning algorithm in the aim to predict the demand for a restaurant which has different centers for the upcoming weeks. This will help them to plan the stock of raw materials for those weeks.
 
-Your client is a meal delivery company which operates in multiple cities. They have various fulfillment centers in these cities for dispatching meal orders to their customers. The client wants you to help these centers with demand forecasting for upcoming weeks so that these centers will plan the stock of raw materials accordingly.
+So we made a XGBoost model which train in 37 s with mean squared error around 5800 
 
-The replenishment of majority of raw materials is done on weekly basis and since the raw material is perishable, the procurement planning is of utmost importance. Secondly, staffing of the centers is also one area wherein accurate demand forecasts are really helpful. Given the following information, the task is to predict the demand for the next 10 weeks (Weeks: 146-155) for the center-meal combinations in the test set:
- 
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b642955a-ce99-4aa9-958a-ca2eb8427e67/Untitled.png)
 
-Historical data of demand for a product-center combination (Weeks: 1 to 145)
-Product(Meal) features such as category, sub-category, current price and discount
-Information for fulfillment center like center area, city information etc.
+To build this model, We firstly start with a base model Which give us a mse around 100k 
 
-### Data Dictionary
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/35cb2e47-c83e-459b-8a60-d9b3ef69ca5a/Untitled.png)
 
-Weekly Demand data (train.csv): Contains the historical demand data for all centers, test.csv contains all the following features except the target variable
- 
-Variable|	Definition
----| ---
-id|	Unique ID
-week|	Week No
-center_id|	Unique ID for fulfillment center
-meal_id|	Unique ID for Meal
-checkout_price|	Final price including discount, taxes & delivery charges
-base_price|	Base price of the meal
-emailer_for_promotion|	Emailer sent for promotion of meal
-homepage_featured|	Meal featured at homepage
-num_orders|	(Target) Orders Count
-
-fulfilment_center_info.csv: Contains information for each fulfilment center
- 
-Variable|	Definition
----| ---
-center_id|	Unique ID for fulfillment center
-city_code|	Unique code for city
-region_code|	Unique code for region
-center_type|	Anonymized center type
-op_area|	Area of operation (in km^2)
-
-meal_info.csv: Contains information for each meal being served
- 
-Variable|	Definition
----| ---
-meal_id|	Unique ID for the meal
-category|	Type of meal (beverages/snacks/soups….)
-cuisine|	Meal cuisine (Indian/Italian/…) 
+After that we tried The random forest and Xgboost. Random forest got the better score(18980 )but it run in 1min and 33s but the Xgboost run in 19.2s which a score of 21470 . Then we choose the Xgboost and tuned the parameters by using GridSerach Cv.
